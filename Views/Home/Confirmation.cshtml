@@ -1,0 +1,44 @@
+﻿@model IencircleAdmin.Models.EventViewModel
+
+@{
+    Layout = "~/Views/Shared/_LayoutClean.cshtml";
+}
+
+<script src="~/lib/Dashboard.js" type="text/javascript"></script>
+
+
+
+<div class="row">
+
+    <div class="col-lg-12">
+
+        <br />
+
+        <div class="panel panel-default">
+
+            <div class="panel-heading">
+
+                Send Email Confirmation
+
+                <span>
+                    <a title="Invite to be sent and qr code will be an attachment to the email." class="btn btn-success" asp-controller="Home"
+                       asp-action="SendInvites"
+                       asp-route-id="@Model.Id"
+                       asp-route-eventName="@Model.EventName"
+                       asp-route-confirmed="@Model.Confirmed"><i style="width:20px" class="fas fa-envelope"></i>&nbsp; Send Invites Confirmed</a>
+                </span>
+
+
+
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</div>
+
+
+

@@ -1,0 +1,144 @@
+﻿@model IEnumerable<CosmosDBEntities.Models.Business>
+
+
+@{
+
+    Layout = "~/Views/Shared/_LayoutClean.cshtml";
+}
+
+<script src="~/lib/Dashboard.js" type="text/javascript"></script>
+
+<div class="row">
+
+    <div class="col-lg-12">
+
+        <div class="panel panel-default">
+
+            <div class="panel-heading">
+                <span>
+                    <a href="@Url.Action("Business","Home")" class="btn btn-success" title="Click To Create a new Event">New Event</a>
+                </span>
+            </div>
+
+            <div class="panel-body">
+
+                <div class="table-responsive">
+                    <table class="table table-hover" id="exampleRecordsTable">
+                        <thead>
+                            <tr>
+                                <th style="width:20%;">Name</th>
+                                <th style="width:10%;">Date</th>
+                                <th style="width:15%;">Venue</th>
+                                <th style="width:55%;"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var e in Model.Where(x => x.BusinessDate.Value >= DateTime.Now.AddDays(-1)))
+                            {
+                            <tr class="odd">
+                                <td>
+                                    <a asp-controller="Home"
+                                       asp-action="Guests"
+                                       asp-route-id="@e.Id"
+                                       asp-route-eventName="@e.AppBusinessName"><i style="width:20px" class="fas fa-building"></i>@e.AppBusinessName</a>
+                                </td>
+                                <td>@((e.BusinessDate.HasValue) ? e.BusinessDate.Value.ToShortDateString() : "Unknown")</td>
+                                <td>@e.Street</td>
+                                <td>
+
+
+                                    <a class="btn btn-info" asp-controller="Home"
+                                       asp-action="Import"
+                                       asp-route-id="@e.Id"
+                                       asp-route-eventName="@e.AppBusinessName"><i style="width:20px" class="fas fa-download"></i>Import</a> |
+
+
+                                    <a class="btn btn-warning" asp-controller="Home"
+                                       asp-action="Guests"
+                                       asp-route-id="@e.Id"
+                                       asp-route-eventName="@e.AppBusinessName"><i style="width:20px" class="fas fa-user-md"></i>Guests</a> |
+
+                                    <a class="btn btn-danger" asp-controller="Home"
+                                       asp-action="EditEvent"
+                                       asp-route-id="@e.Id"
+                                       asp-route-eventName="@e.AppBusinessName"><i style="width:20px" class="fas fa-edit"></i>Edit</a> |
+
+                                    <a class="btn btn-primary" asp-controller="Home"
+                                       asp-action="QrEvent"
+                                       asp-route-id="@e.Id"
+                                       asp-route-eventName="@e.AppBusinessName"><i style="width:20px" class="fas fa-barcode"></i>QR (BOT)</a>
+
+                                    | <a class="btn btn-success" target="_blank" href="https://selfie2tv.com">Selfies</a>
+
+                                </td>
+
+                            </tr>
+                            }
+
+
+                        </tbody>
+                    </table>
+                </div>
+
+                <hr />
+                <blockquote style="color:red;">Past Events</blockquote>
+
+                <div class="table-responsive" style="background-color:tomato;">
+                    <table class="table table-hover" id="exampleRecordsTable">
+                        <thead>
+                            <tr>
+                                <th style="width:20%;">Name</th>
+                                <th style="width:10%;">Date</th>
+                                <th style="width:20%;">Venue</th>
+                                <th style="width:50%;"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var e in Model.Where(x => x.BusinessDate.Value < DateTime.Now.AddDays(-1)))
+                            {
+                                <tr class="odd">
+                                    <td>
+                                        <a asp-controller="Home"
+                                           asp-action="Guests"
+                                           asp-route-id="@e.Id"
+                                           asp-route-eventName="@e.AppBusinessName"><i style="width:20px" class="fas fa-building"></i>@e.AppBusinessName</a>
+                                    </td>
+                                    <td>@((e.BusinessDate.HasValue) ? e.BusinessDate.Value.ToShortDateString() : "Unknown")</td>
+                                    <td>@e.Street</td>
+                                    <td>
+
+                                        <a class="btn btn-warning" asp-controller="Home"
+                                           asp-action="Guests"
+                                           asp-route-id="@e.Id"
+                                           asp-route-eventName="@e.AppBusinessName"><i style="width:20px" class="fas fa-user-md"></i>Guests</a> |
+
+                                        <a class="btn btn-danger" asp-controller="Home"
+                                           asp-action="EditEvent"
+                                           asp-route-id="@e.Id"
+                                           asp-route-eventName="@e.AppBusinessName"><i style="width:20px" class="fas fa-edit"></i>Edit</a> |
+
+                                        <a class="btn btn-primary" asp-controller="Home"
+                                           asp-action="QrEvent"
+                                           asp-route-id="@e.Id"
+                                           asp-route-eventName="@e.AppBusinessName"><i style="width:20px" class="fas fa-barcode"></i>QR (BOT)</a>
+
+                                        | <a class="btn btn-success" target="_blank" href="https://selfie2tv.com">Selfies</a>
+
+
+                                    </td>
+
+                                </tr>
+                            }
+
+
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

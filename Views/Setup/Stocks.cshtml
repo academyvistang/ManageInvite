@@ -1,0 +1,336 @@
+﻿@model CosmosDBEntities.Models.Business
+
+@{
+    Layout = "~/Views/Shared/_LayoutClean.cshtml";
+}
+
+
+
+<style>
+    /*body {
+        background-color: #d7d6d3;
+        font-family: "verdana";
+    }*/
+
+    .id-card-holder {
+        width: 225px;
+        padding: 4px;
+        margin: 0 auto;
+        background-color: #1f1f1f;
+        border-radius: 5px;
+        position: relative;
+    }
+
+        .id-card-holder:after {
+            content: "";
+            width: 7px;
+            display: block;
+            background-color: #0a0a0a;
+            height: 100px;
+            position: absolute;
+            top: 105px;
+            border-radius: 0 5px 5px 0;
+        }
+
+        .id-card-holder:before {
+            content: "";
+            width: 7px;
+            display: block;
+            background-color: #0a0a0a;
+            height: 100px;
+            position: absolute;
+            top: 105px;
+            left: 222px;
+            border-radius: 5px 0 0 5px;
+        }
+
+    .id-card {
+        background-color: #fff;
+        padding: 10px;
+        border-radius: 10px;
+        text-align: center;
+        box-shadow: 0 0 1.5px 0px #b9b9b9;
+    }
+
+        .id-card img {
+            margin: 0 auto;
+        }
+
+    .header img {
+        width: 100px;
+        margin-top: 15px;
+    }
+
+    .photo img {
+        width: 80px;
+        margin-top: 15px;
+    }
+
+    h2 {
+        font-size: 15px;
+        margin: 5px 0;
+    }
+
+    h3 {
+        font-size: 12px;
+        margin: 2.5px 0;
+        font-weight: 300;
+    }
+
+    .qr-code img {
+        width: 150px;
+    }
+
+    p {
+        font-size: 5px;
+        margin: 2px;
+    }
+
+    .id-card-hook {
+        background-color: #000;
+        width: 70px;
+        margin: 0 auto;
+        height: 15px;
+        border-radius: 5px 5px 0 0;
+    }
+
+        .id-card-hook:after {
+            content: "";
+            background-color: #d7d6d3;
+            width: 47px;
+            height: 6px;
+            display: block;
+            margin: 0px auto;
+            position: relative;
+            top: 6px;
+            border-radius: 4px;
+        }
+
+    .id-card-tag-strip {
+        width: 45px;
+        height: 40px;
+        /*background-color: #0950ef;*/
+        background-color: #ffa500;
+        margin: 0 auto;
+        border-radius: 5px;
+        position: relative;
+        top: 9px;
+        z-index: 1;
+        border: 1px solid #0041ad;
+    }
+
+        .id-card-tag-strip:after {
+            content: "";
+            display: block;
+            width: 100%;
+            height: 1px;
+            background-color: #c1c1c1;
+            position: relative;
+            top: 10px;
+        }
+
+    .id-card-tag {
+        width: 0;
+        height: 0;
+        border-left: 100px solid transparent;
+        border-right: 100px solid transparent;
+        border-top: 100px solid #0958db;
+        margin: -10px auto -30px auto;
+    }
+
+        .id-card-tag:after {
+            content: "";
+            display: block;
+            width: 0;
+            height: 0;
+            border-left: 50px solid transparent;
+            border-right: 50px solid transparent;
+            border-top: 100px solid #d7d6d3;
+            margin: -10px auto -30px auto;
+            position: relative;
+            top: -130px;
+            left: -50px;
+        }
+</style>
+
+
+<div class="row">
+
+    <div class="col-lg-12">
+
+        <br />
+
+        <div class="panel panel-default">
+
+            <div class="panel-heading">
+                Stocks (@Model.AppBusinessName)
+
+
+                @if (!string.IsNullOrEmpty(Model.Id))
+                {
+                    <span>
+
+                        <a title="Add New Item." class="btn btn-warning" asp-controller="Setup"
+                           asp-action="EditStock"
+                           asp-route-id="@Model.Id"
+                           asp-route-eventName="@Model.AppBusinessName"><i style="width:30px" class="fas fa-edit"></i>&nbsp; Create Item</a>
+
+                    </span>
+
+                    <span>
+
+                        <a title="Categories" class="btn btn-danger" asp-controller="Setup"
+                           asp-action="Categories"
+                           asp-route-id="@Model.Id"
+                           asp-route-eventName="@Model.AppBusinessName"><i style="width:30px" class="fas fa-edit"></i>&nbsp; Categories</a>
+
+                    </span>
+                }
+
+
+
+
+            </div>
+
+            <div class="panel-body">
+
+                <div class="col-lg-12">
+
+                    @if (null != Model.Stocks && Model.Stocks.Any())
+                    {
+                       
+
+                        <div class="containerXXXX">
+                            <div class="row">
+
+                                @foreach (var p in Model.Stocks.Where(x => x.IsActive))
+                                {
+                                    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+                                        <div style="margin-bottom:5px;">
+
+                                            <div class="id-card-tag-strip"></div>
+                                            <div class="id-card-hook"></div>
+                                            <div class="id-card-holder">
+                                                <div class="id-card">
+                                                    <div class="header">
+
+                                                    </div>
+
+
+                                                    <h2 style="word-wrap:break-word;">
+                                                        <a title="Edit Stock Detail." asp-controller="Setup"
+                                                           asp-action="EditStock"
+                                                           asp-route-id="@Model.Id"
+                                                           asp-route-StockId="@p.Id"
+                                                           asp-route-StockName="@p.Name">@p.Name</a>
+                                                    </h2>
+                                                    <div class="qr-code">
+                                                        <img src="@p.PicturePath">
+                                                    </div>
+
+                                                    @if (p.Category != null)
+                                                    {
+                                                        <h3 style="word-wrap:break-word;">@p.Category.Name</h3>
+                                                    }
+
+                                                    <h3 style="word-wrap:break-word;">@p.Description</h3>
+                                                    <h3 style="word-wrap:break-word;">@p.Currency @p.Price</h3>
+                                                    <a class="btn btn-primary" title="Edit Stock Detail." asp-controller="Setup"
+                                                       asp-action="EditStock"
+                                                       asp-route-id="@Model.Id"
+                                                       asp-route-StockId="@p.Id"
+                                                       asp-route-StockName="@p.Name">Edit</a>
+
+
+
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                }
+
+
+
+                            </div>
+
+                            <hr />
+
+                            <blockquote>Inactive Stocks</blockquote>
+
+                            <div class="row">
+                                @foreach (var p in Model.Stocks.Where(x => !x.IsActive))
+                                {
+
+                                    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+                                        <div style="margin-bottom:5px;">
+
+                                            <div class="id-card-tag-strip"></div>
+                                            <div class="id-card-hook"></div>
+                                            <div class="id-card-holder">
+                                                <div class="id-card">
+                                                    <div class="header">
+
+                                                    </div>
+
+
+                                                    <h2 style="word-wrap:break-word;">
+                                                        <a title="Edit Stock Detail." asp-controller="Setup"
+                                                           asp-action="EditStock"
+                                                           asp-route-id="@Model.Id"
+                                                           asp-route-StockId="@p.Id"
+                                                           asp-route-StockName="@p.Name">@p.Name</a>
+                                                    </h2>
+                                                    <div class="qr-code">
+                                                        <img src="@p.PicturePath">
+                                                    </div>
+
+                                                    @if (p.Category != null)
+                                                    {
+                                                        <h3 style="word-wrap:break-word;">@p.Category.Name</h3>
+                                                    }
+
+
+                                                    <h3 style="word-wrap:break-word;">@p.Description</h3>
+                                                    <h3 style="word-wrap:break-word;">@p.Currency @p.Price</h3>
+                                                    <a class="btn btn-primary" title="Edit Stock Detail." asp-controller="Setup"
+                                                       asp-action="EditStock"
+                                                       asp-route-id="@Model.Id"
+                                                       asp-route-StockId="@p.Id"
+                                                       asp-route-StockName="@p.Name">Edit</a>
+
+
+
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                }
+
+
+
+                            </div>
+                        </div>
+
+                        @*<partial name="_StockList" model="Model" />*@
+                    }
+                    else
+                    {
+                        <p style="color:red;">Empty Stock list</p>
+                    }
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+

@@ -1,0 +1,189 @@
+﻿@model CosmosDBEntities.Models.Category
+
+@{
+    Layout = "~/Views/Shared/_LayoutClean.cshtml";
+}
+
+
+<style>
+
+    .file-input {
+        display: inline-block;
+        text-align: left;
+        background: #fff;
+        padding: 16px;
+        width: 450px;
+        position: relative;
+        border-radius: 3px;
+    }
+
+        .file-input > [type='file'] {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            z-index: 10;
+            cursor: pointer;
+        }
+
+        .file-input > .button {
+            display: inline-block;
+            cursor: pointer;
+            background: #eee;
+            padding: 8px 16px;
+            border-radius: 2px;
+            margin-right: 8px;
+        }
+
+        .file-input:hover > .button {
+            background: dodgerblue;
+            color: white;
+        }
+
+        .file-input > .label {
+            color: #333;
+            white-space: nowrap;
+            opacity: .3;
+        }
+
+        .file-input.-chosen > .label {
+            opacity: 1;
+        }
+</style>
+
+<link href="https://cdn.jsdelivr.net/npm/gijgo@1.9.6/css/gijgo.min.css" rel="stylesheet" type="text/css" />
+
+
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gijgo@1.9.6/js/gijgo.min.js" type="text/javascript"></script>
+
+<script>
+    $(function () {
+        //$.fn.datepicker.defaults.format = "dd/mm/yyyy";
+        $('#EventDate').datepicker({
+            uiLibrary: 'bootstrap4',
+            format: 'dd/mm/yyyy'
+        });
+
+
+
+        // Also see: https://www.quirksmode.org/dom/inputfile.html
+
+        var inputs = document.querySelectorAll('.file-input')
+
+        for (var i = 0, len = inputs.length; i < len; i++) {
+            customInput(inputs[i])
+        }
+
+        function customInput(el) {
+            const fileInput = el.querySelector('[type="file"]')
+            const label = el.querySelector('[data-js-label]')
+
+            fileInput.onchange =
+                fileInput.onmouseout = function () {
+                    if (!fileInput.value) return
+
+                    var value = fileInput.value.replace(/^.*[\\\/]/, '')
+                    el.className += ' -chosen'
+                    label.innerText = value
+                }
+        }
+    });
+
+</script>
+
+<div class="row">
+
+    <div class="panel-body">
+
+        <ul class="nav nav-tabs">
+            <li class="active">
+                <a href="#detail" data-toggle="tab">Category Details</a>
+            </li>
+        </ul>
+
+        <div class="tab-content">
+
+            <div class="tab-pane fade in active" id="detail">
+
+                <div class="row">
+
+                    <div class="row-heading">
+                        Category Details
+                    </div>
+
+                    <form method="post" enctype="multipart/form-data" action="@Url.Action("EditCategoryDetail")">
+
+                        @Html.HiddenFor(m => m.Id)
+                        @Html.HiddenFor(m => m.BusinessId)
+                        @Html.Hidden("CategoryId", Model.Id)
+
+
+                        <div class="col-md-12">
+
+                            <div class="form-group-page">
+                                <span class="readLabel">Name</span>
+                                <span class="readValue">@Html.TextBoxFor(model => model.Name, new { placeholder = "Name" })</span>
+                            </div>
+
+                            <div class="form-group-page">
+                                <span class="readLabel">Description</span>
+                                <span class="readValue">@Html.TextAreaFor(model => model.Description, new { placeholder = "Description" })</span>
+                            </div>
+
+                          
+
+                            <div class="form-group-page">
+                                <div class='file-input'>
+                                    <input type='file' name="categoryfiles">
+                                    <span class='button'> Category Image </span>
+                                    <label class='label' data-js-label>No file selected</label>
+                                </div>
+                                @if (string.IsNullOrEmpty(Model.PicturePath))
+                                {
+                                    <span><i class="fas fa-thumbs-down"></i></span>
+                                }
+                                else
+                                {
+                                    <span><a href="@Model.PicturePath" class="fas fa-download"></a></span>
+                                }
+                            </div>
+
+
+
+
+                            <br />
+
+                            @if (!string.IsNullOrEmpty(Model.Id))
+                            {
+                                <div class="col-md-12" style="margin-left:15px;">
+                                    <span class="readValue"><input type="submit" value="Update Category" class="btn btn-primary" /></span>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="col-md-12" style="margin-left:15px;">
+                                    <span class="readValue"><input type="submit" value="Save Category" class="btn btn-primary" /></span>
+                                </div>
+                            }
+
+
+
+                        </div>
+
+
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+

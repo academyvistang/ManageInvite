@@ -1,0 +1,130 @@
+﻿@model CosmosDBEntities.Models.Guest
+
+
+
+
+
+<div style="margin-bottom:5px;">
+
+    @*<div class="id-card-tag"></div>
+        <div class="id-card-tag-strip"></div>
+        <div class="id-card-hook"></div>*@
+    <div class="id-card-tag-strip"></div>
+    <div class="id-card-hook"></div>
+    <div class="id-card-holder">
+        <div class="id-card">
+            <div class="header">
+                <img src="@Model.BusinessLogo">
+            </div>
+            @*<div class="photo">
+        <img src="https://res.cloudinary.com/leboston/image/upload/v1558269093/programmer_nsfrsq.jpg">
+        </div>*@
+            <h2 style="word-wrap:break-word;">
+                <a title="Edit Guest Detail." asp-controller="Home"
+                   asp-action="EditGuest"
+                   asp-route-id="@Model.BusinessId"
+                   asp-route-guestId="@Model.Id"
+                   asp-route-eventName="@Model.AppBusinessName">@Model.Fullname</a>
+
+                (@Model.NoOfInvites)
+            </h2>
+            <div class="qr-code">
+                <img src="@Model.QRCode">
+            </div>
+            @if (string.IsNullOrEmpty(Model.Email))
+            {
+                <h3 style="word-wrap:break-word;">Email : @Model.Email</h3>
+            }
+            else
+            {
+                <h3 style="word-wrap:break-word;">Email : @Model.Email</h3>
+            }
+
+            <h3 style="word-wrap:break-word;">Company : @Model.CompanyName</h3>
+
+            <h3 style="word-wrap:break-word;">Status : @Model.Status</h3>
+
+
+            @if (Model.InviteSent)
+            {
+                <h3 style="word-wrap:break-word;">Invite Sent</h3>
+            }
+            else
+            {
+                <h3 style="word-wrap:break-word;">Invite Not Sent</h3>
+            }
+
+            <hr>
+
+            @*@if (!Model.Processed)
+            {
+                if (!string.IsNullOrEmpty(Model.BusinessId))
+                {
+                    <a title="Process" class="btn btn-success" asp-controller="Home"
+                       asp-action="ProcessInvite"
+                       asp-route-id="@Model.BusinessId"
+                       asp-route-guestid="@Model.Id"
+                       asp-route-eventName="@Model.AppBusinessName"><i style="width:20px" class="fas fa-download"></i>Process</a>
+                }
+
+            }
+            else
+            {
+                if (!string.IsNullOrEmpty(Model.BusinessId))
+                {
+                    <a style="margin-bottom:5px;padding-bottom:5px;" title="Process" class="btn btn-danger" asp-controller="Home"
+                       asp-action="ProcessInvite"
+                       asp-route-id="@Model.BusinessId"
+                       asp-route-guestid="@Model.Id"
+                       asp-route-eventName="@Model.AppBusinessName"><i style="width:20px" class="fas fa-download"></i>Re Process</a>
+                }
+            }*@
+
+            <hr />
+            <a title="SendInviteSingle" class="btn btn-primary" asp-controller="Home"
+               asp-action="SendInviteSingle"
+               asp-route-id="@Model.BusinessId"
+               asp-route-guestid="@Model.Id"
+               asp-route-eventName="@Model.AppBusinessName"><i style="width:20px" class="fas fa-download"></i>Send Email</a>
+
+
+
+            @*@if (!string.IsNullOrEmpty(Model.Email) && Model.IsActive)
+        {
+            if (Model.InviteSent)
+            {
+                <a title="Invite to be sent and qr code will be an attachment to the email." class="btn btn-success" asp-controller="Home"
+                   asp-action="ResendInvite"
+                   asp-route-id="@Model.BusinessId"
+                   asp-route-guestid="@Model.Id"
+                   asp-route-eventName="@Model.AppBusinessName"><i style="width:20px" class="fas fa-download"></i>Resend Invite</a>
+
+            }
+            else
+            {
+                <a title="Invite to be sent and qr code will be an attachment to the email." class="btn btn-primary" asp-controller="Home"
+                   asp-action="SendInviteSingle"
+                   asp-route-id="@Model.BusinessId"
+                   asp-route-guestid="@Model.Id"
+                   asp-route-eventName="@Model.AppBusinessName"><i style="width:20px" class="fas fa-download"></i>Send Invite</a>
+
+            }
+        }
+        else
+        {
+            <a title="Edit Guest Detail." class="btn btn-danger" asp-controller="Home"
+               asp-action="EditGuest"
+               asp-route-id="@Model.BusinessId"
+               asp-route-guestId="@Model.Id"
+               asp-route-eventName="@Model.AppBusinessName"><i style="width:20px" class="fas fa-edit"></i>Edit</a>
+        }*@
+
+            @*<p><strong>"PENGG"</strong>HOUSE,4th Floor, TC 11/729(4), Division Office Road <p>
+        <p>Near PMG Junction, Thiruvananthapuram Kerala, India <strong>695033</strong></p>
+        <p>Ph: 9446062493 | E-ail: info@onetikk.info</p>*@
+
+        </div>
+    </div>
+
+</div>
+

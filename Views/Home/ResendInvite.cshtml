@@ -1,0 +1,62 @@
+﻿@model IencircleAdmin.Models.EventModel
+
+
+
+<div class="row">
+
+    <div class="col-lg-12">
+
+        <br />
+
+        <div class="panel panel-default">
+
+            <div class="panel-heading">
+                Guests
+                @if (Model.Guests.Any())
+                {
+                    <span>
+                        <a title="Invite to be sent and qr code will be an attachment to the email." class="btn btn-success" asp-controller="Home"
+                           asp-action="SendInvites"
+                           asp-route-id="@Model.Id"
+                           asp-route-eventName="@Model.AppBusinessName"><i style="width:20px" class="fas fa-download"></i>&nbsp; Send Invites</a>
+                    </span>
+                }
+
+                @if (!string.IsNullOrEmpty(Model.Id))
+                {
+                    <span>
+                        <a title="Add New Guest." class="btn btn-warning" asp-controller="Home"
+                           asp-action="EditGuest"
+                           asp-route-id="@Model.Id"
+                           asp-route-eventName="@Model.AppBusinessName"><i style="width:20px" class="fas fa-edit"></i>&nbsp; New Guest</a>
+                    </span>
+                }
+            </div>
+
+            <div class="panel-body">
+
+                <div class="col-lg-12">
+
+                    @if (Model.Guests.Any())
+                    {
+                        <partial name="_GuestList" model="Model" />
+                    }
+                    else
+                    {
+                        <p style="color:red;">Empty guest list</p>
+                    }
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+

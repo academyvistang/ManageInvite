@@ -1,0 +1,47 @@
+﻿@model IencircleAdmin.Models.EventModel
+
+@{
+    Layout = "~/Views/Shared/_LayoutClean.cshtml";
+}
+
+<script src="~/lib/Dashboard.js" type="text/javascript"></script>
+
+<div class="row">
+
+    <div class="col-lg-12">
+
+        <br />
+
+        <div class="panel panel-default">
+
+            <div class="panel-heading">
+                Guests
+            </div>
+
+            <div class="panel-body">
+
+                <div class="col-lg-12">
+
+                    @if (Model.Guests.Any())
+                    {
+                        <partial name="_GuestList" model="Model" />
+                    }
+                    else
+                    {
+                        <p style="color:red;">Empty guest list</p>
+                    }
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+

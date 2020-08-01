@@ -1,0 +1,878 @@
+﻿@model CosmosDBEntities.Models.Business
+
+<div class="row">
+    <div class="panel panel-default">
+
+        <div class="panel-heading">
+
+            @if (!string.IsNullOrEmpty(Model.Id))
+            {
+                <div class="row">
+                    <div class="col-md-3">
+                        <span>
+                            <a class="btn btn-success" asp-controller="Setup"
+                               asp-action="Ads"
+                               asp-route-id="@Model.Id"
+                               asp-route-eventName="@Model.AppBusinessName"><i style="width:20px" class="fas fa-building"></i>Bot Images</a>
+                        </span>
+                    </div>
+                    <div class="col-md-3">
+                        <span>
+                            <a class="btn btn-primary" asp-controller="Setup"
+                               asp-action="Stocks"
+                               asp-route-id="@Model.Id"
+                               asp-route-eventName="@Model.AppBusinessName"><i style="width:20px" class="fas fa-barcode"></i>Food && Drinks</a>
+                        </span>
+                    </div>
+                    
+                    <div class="col-md-3">
+                        <span>
+                            <a class="btn btn-info" asp-controller="Setup"
+                               asp-action="Speakers"
+                               asp-route-id="@Model.Id"
+                               asp-route-eventName="@Model.AppBusinessName"><i style="width:20px" class="fas fa-users"></i>Speakers</a>
+                        </span>
+                    </div>
+                </div>
+            }
+            @*@if (!string.IsNullOrEmpty(Model.Id))
+        {
+
+
+            <span>
+                <a class="btn btn-info" asp-controller="Home"
+                   asp-action="Stocks"
+                   asp-route-id="@Model.Id"
+                   asp-route-eventName="@Model.AppBusinessName"><i style="width:20px" class="fas fa-barcode"></i>Stock Items</a>
+            </span>
+
+            <span>
+                <a class="btn btn-success" asp-controller="Home"
+                   asp-action="Specials"
+                   asp-route-id="@Model.Id"
+                   asp-route-eventName="@Model.AppBusinessName"><i style="width:20px" class="fas fa-star"></i>Daily Specials</a>
+            </span>
+
+            <span>
+                <a class="btn btn-danger" asp-controller="Home"
+                   asp-action="Ads"
+                   asp-route-id="@Model.Id"
+                   asp-route-eventName="@Model.AppBusinessName"><i style="width:20px" class="fas fa-bookmark"></i>Event Images</a>
+            </span>
+
+            <span>
+                <a class="btn btn-info" asp-controller="Home"
+                   asp-action="Places"
+                   asp-route-id="@Model.Id"
+                   asp-route-eventName="@Model.AppBusinessName"><i style="width:20px" class="fas fa-location-arrow"></i>Places Of interest</a>
+            </span>
+
+        }*@
+
+
+        </div>
+
+        <div class="panel-body">
+
+            <ul class="nav nav-tabs">
+                <li class="active">
+                    <a href="#detail" data-toggle="tab">Event Details</a>
+                </li>
+                <li>
+                    <a href="#robot" data-toggle="tab">Robot Details</a>
+                </li>
+                <li>
+                    <a href="#analytic" data-toggle="tab">Analytics</a>
+                </li>
+                <li>
+                    <a href="#questions" data-toggle="tab">Unaswered Questions</a>
+                </li>
+
+                <li>
+                    <a href="#" data-toggle="tab">No Of Downloads @Model.NoOfDownloads</a>
+                </li>
+
+
+            </ul>
+
+            <div class="tab-content">
+
+                <div class="tab-pane fade in active" id="detail">
+
+                    <div class="row">
+
+                        <div class="row-heading">
+                            Business Demographics
+                        </div>
+
+                        <form method="post" enctype="multipart/form-data" action="@Url.Action("CreateNewBusiness")">
+
+                            @Html.HiddenFor(m => m.Id)
+                            @Html.HiddenFor(m => m.BusinessType)
+                            @Html.HiddenFor(m => m.BusinessName)
+
+                            <div class="col-md-6">
+
+                                <div class="form-group-page">
+                                    <span class="readLabel">Event Name</span>
+                                    <span class="readValue">@Html.TextBoxFor(model => model.AppBusinessName, new { placeholder = "Event Name" })</span>
+                                </div>
+
+                                <div class="form-group-page">
+                                    <span class="readLabel">Description</span>
+                                    <span class="readValue">@Html.TextBoxFor(model => model.Description, new { placeholder = "Brief Description" })</span>
+                                </div>
+
+                                <div class="form-group-page">
+                                    <span class="readLabel">Event Date</span>
+                                    <span class="readValue">@Html.TextBoxFor(model => model.BusinessDate)</span>
+                                    <br />
+                                    <br />
+                                </div>
+
+                                <div class="form-group-page">
+                                    <span class="readLabel">Opening Time</span>
+                                    <span class="readValue">@Html.TextAreaFor(model => model.OpeningTime, new { placeholder = "Opening Time" })</span>
+                                    <br />
+                                </div>
+
+                                <div class="form-group-page">
+                                    <span class="readLabel">Selfie 2 Tv Code</span>
+                                    <span class="readValue">@Html.TextBoxFor(model => model.Selfie2TvCode)</span>
+                                    <br />
+                                    <br />
+                                </div>
+
+                                <div class="form-group-page">
+                                    <span class="readLabel">Is Active</span>
+                                    <span class="readValue">@Html.CheckBoxFor(model => model.IsActive, false)</span>
+                                </div>
+
+                                <div class="form-group-page">
+                                    <span class="readLabel">Is Coporate Event</span>
+                                    <span class="readValue">@Html.CheckBoxFor(model => model.IsCoporateEvent, false)</span>
+                                </div>
+
+                                <div class="form-group-page">
+                                    <span class="readLabel">Payment Required (Place Order)</span>
+                                    <span class="readValue">@Html.CheckBoxFor(model => model.PaymentRequired, false)</span>
+                                </div>
+
+                                <div class="form-group-page">
+                                    <span class="readLabel">Shop HarshTag</span>
+                                    <span class="readValue">@Html.TextBoxFor(model => model.HarshTag, false)</span>
+                                </div>
+
+
+                                <div class="form-group-page">
+                                    <span class="readLabel">Comma Seperated Telephone No.s For Complaints</span>
+                                    <span class="readValue">@Html.TextBoxFor(model => model.ComplaintsNumber)</span>
+                                    <br />
+                                    <br />
+                                </div>
+
+                                <div class="form-group-page">
+                                    <span class="readLabel">Comma Seperated Emails For Complaints</span>
+                                    <span class="readValue">@Html.TextBoxFor(model => model.ComplaintsEmail)</span>
+                                    <br />
+                                    <br />
+                                </div>
+
+                                <div class="form-group-page">
+                                    <div class='file-input'>
+                                        <input type='file' name="logofiles">
+                                        <span class='button'> Event Logo </span>
+                                        <label class='label' data-js-label>No file selected</label>
+                                    </div>
+                                    @if (string.IsNullOrEmpty(Model.BusinessLogoPath))
+                                    {
+                                        <span><i class="fas fa-thumbs-down"></i></span>
+                                    }
+                                    else
+                                    {
+                                        <span><a href="@Model.BusinessLogoPath" class="fas fa-download"></a></span>
+                                    }
+                                </div>
+
+
+                                <div class="form-group-page">
+                                    <div class='file-input'>
+                                        <input type='file' name="headerlogofiles">
+                                        <span class='button'> Email Header Logo </span>
+                                        <label class='label' data-js-label>No file selected</label>
+                                    </div>
+                                    @if (string.IsNullOrEmpty(Model.BusinessHeaderLogoPath))
+                                    {
+                                        <span><i class="fas fa-thumbs-down"></i></span>
+                                    }
+                                    else
+                                    {
+                                        <span><a href="@Model.BusinessHeaderLogoPath" class="fas fa-download"></a></span>
+                                    }
+                                </div>
+
+                                <div class="form-group-page">
+                                    <span class="readLabel">Real Event</span>
+                                    <span class="readValue">@Html.CheckBoxFor(model => model.IsRegistered, false)</span>
+                                </div>
+
+
+
+                                <div class="form-group-page">
+                                    <span class="readLabel">Email Subject</span>
+                                    <span class="readValue">@Html.TextBoxFor(model => model.BusinessEmailSubject, new { placeholder = "Email Subject" })</span>
+                                </div>
+
+
+
+
+                                <div class="form-group-page">
+                                    <span class="readLabel">Address</span>
+                                    <span class="readValue">
+                                        @Html.TextBoxFor(model => model.Street, new { placeholder = "Street" })<br />
+                                        @Html.TextBoxFor(model => model.Town, new { placeholder = "Town" })<br />
+                                        @Html.TextBoxFor(model => model.Country, new { placeholder = "Country" })<br />
+                                        @Html.TextBoxFor(model => model.Postcode, new { placeholder = "Postcode" })<br />
+                                        @Html.TextBoxFor(model => model.Latitude, new { placeholder = "Latitude" })<br />
+                                        @Html.TextBoxFor(model => model.Longitude, new { placeholder = "Longitude" })<br />
+
+                                    </span>
+                                </div>
+
+                                <div class="form-group-page">
+                                    <span class="readLabel">Internet Details</span>
+                                    <span class="readValue">
+                                        @Html.TextBoxFor(model => model.BusinessInternetId, new { placeholder = "Id" })<br />
+                                        @Html.TextBoxFor(model => model.BusinessInternetPassword, new { placeholder = "Password" })<br />
+                                    </span>
+                                </div>
+
+                                <div class="form-group-page">
+                                    <span class="readLabel">Telephone Numbers</span>
+                                    <span class="readValue">
+                                        @Html.TextBoxFor(model => model.FrontOffice, new { placeholder = "Event Organiser" })<br />
+                                        @Html.TextBoxFor(model => model.RoomService, new { placeholder = "Caterer" })<br />
+                                        @Html.TextBoxFor(model => model.Laundry, new { placeholder = "Host" })<br />
+                                    </span>
+                                </div>
+
+
+
+                                <div class="form-group-page">
+                                    <span class="readLabel">Host</span>
+                                    <span class="readValue">@Html.TextBoxFor(model => model.HostName, new { placeholder = "Host Name" })</span>
+                                </div>
+
+                                <div class="form-group-page">
+                                    <span class="readLabel">Host Telephone</span>
+                                    <span class="readValue">@Html.TextBoxFor(model => model.HostTelephone, new { placeholder = "Host Telephone" })</span>
+                                </div>
+
+                                <div class="form-group-page">
+                                    <span class="readLabel">Host Email</span>
+                                    <span class="readValue">@Html.TextBoxFor(model => model.HostEmail, new { placeholder = "Host Email" })</span>
+                                </div>
+
+
+
+                                <div class="form-group-page">
+                                    <span class="readLabel">Waiter Management Email</span>
+                                    <span class="readValue">@Html.TextAreaFor(model => model.WaiterManagementEmail, new { placeholder = "Waiter Management Email" })</span>
+                                </div>
+
+                                <div class="form-group-page">
+                                    <span class="readLabel">Facilities Email</span>
+                                    <span class="readValue">@Html.TextAreaFor(model => model.FacilitiesEmail, new { placeholder = "Facilities Email" })</span>
+                                </div>
+
+                                <div class="form-group-page">
+                                    <span class="readLabel">Security Email</span>
+                                    <span class="readValue">@Html.TextAreaFor(model => model.SecurityEmail, new { placeholder = "Security Email" })</span>
+                                </div>
+
+                                <div class="form-group-page">
+                                    <span class="readLabel">Management Email</span>
+                                    <span class="readValue">@Html.TextAreaFor(model => model.ManagementEmail, new { placeholder = "Management Email" })</span>
+                                </div>
+
+
+                                <div class="form-group-page">
+                                    <span class="readLabel">Invite Message</span>
+                                    <span class="readValue">@Html.TextBoxFor(model => model.InviteMessage, new { placeholder = "Invite Message" })</span>
+                                </div>
+
+                                <div class="form-group-page">
+                                    <span class="readLabel">Use Logo For Email Header</span>
+                                    <span class="readValue">@Html.CheckBoxFor(model => model.UseLogoForEmailHeader, false)</span>
+                                </div>
+
+
+
+                            </div>
+
+                            <div class="col-md-6">
+
+
+
+                                <div class="form-group-page">
+                                    <div class='file-input'>
+                                        <input type='file' name="menufiles">
+                                        <span class='button'> Menu</span>
+                                        <label class='label' data-js-label>No file selected</label>
+                                    </div>
+                                    @if (string.IsNullOrEmpty(Model.MenuPath))
+                                    {
+                                        <span><i class="fas fa-thumbs-down"></i></span>
+                                    }
+                                    else
+                                    {
+                                        <span><a href="@Model.MenuPath" class="fas fa-download"></a></span>
+                                    }
+                                </div>
+
+                                <div class="form-group-page">
+                                    <div class='file-input'>
+                                        <input type='file' name="programfiles">
+                                        <span class='button'> Program </span>
+                                        <label class='label' data-js-label>No file selected</label>
+
+                                    </div>
+                                    @if (string.IsNullOrEmpty(Model.ProgramPath))
+                                    {
+                                        <span><i class="fas fa-thumbs-down"></i></span>
+                                    }
+                                    else
+                                    {
+                                        <span><a href="@Model.ProgramPath" class="fas fa-download"></a></span>
+                                    }
+                                </div>
+
+                                <div class="form-group-page">
+                                    <div class='file-input'>
+                                        <input type='file' name="mapfiles">
+                                        <span class='button'> Business Map </span>
+                                        <label class='label' data-js-label>No file selected</label>
+
+                                    </div>
+                                    @if (string.IsNullOrEmpty(Model.MapPath))
+                                    {
+                                        <span><i class="fas fa-thumbs-down"></i></span>
+                                    }
+                                    else
+                                    {
+                                        <span><a href="@Model.MapPath" class="fas fa-download"></a></span>
+                                    }
+                                </div>
+
+                                <div class="form-group-pagexx" style="margin:10px; padding:10px;">
+                                    <span class="readLabel"></span>
+                                    <span class="readValue"><input type="submit" value="Update" class="btn btn-primary" /></span>
+                                </div>
+
+                            </div>
+
+                        </form>
+
+                    </div>
+
+                </div>
+
+                <div class="tab-pane fade in" id="robot">
+                    <div class="row">
+
+                        <div class="row-heading">
+                            Robot Information
+                        </div>
+
+                        <form method="post" enctype="multipart/form-data" action="@Url.Action("CreateNewBusiness")">
+
+                            @Html.HiddenFor(m => m.Id)
+                            @Html.HiddenFor(m => m.BusinessName)
+                            @Html.HiddenFor(m => m.AppBusinessName)
+                            @Html.HiddenFor(m => m.BusinessType)
+
+                            <div class="col-md-6">
+
+                                <div class="form-group-page">
+                                    <span class="readLabel">Event Sponsors</span>
+                                    <span class="readValue">@Html.TextBoxFor(model => model.BusinessSponsors, new { placeholder = "Sponsors" })</span>
+                                </div>
+
+                                <div class="form-group-page">
+                                    <div class='file-input'>
+                                        <input type='file' name="sponsorsfiles">
+                                        <span class='button'> Sponsors Logo </span>
+                                        <label class='label' data-js-label>No file selected</label>
+
+                                    </div>
+                                    @if (string.IsNullOrEmpty(Model.BusinessSponsorsLogo))
+                                    {
+                                        <span><i class="fas fa-thumbs-down"></i></span>
+                                    }
+                                    else
+                                    {
+                                        <span><a href="@Model.BusinessSponsorsLogo" class="fas fa-download"></a></span>
+                                    }
+                                </div>
+
+
+                                <div class="form-group-page">
+                                    <span class="readLabel">Event Chairperson</span>
+                                    <span class="readValue">@Html.TextBoxFor(model => model.BusinessChairman, new { placeholder = "Event Chairperson" })</span>
+                                </div>
+
+                                <div class="form-group-page">
+                                    <div class='file-input'>
+                                        <input type='file' name="chairmanfiles">
+                                        <span class='button'> Chairperson Image </span>
+                                        <label class='label' data-js-label>No file selected</label>
+
+                                    </div>
+                                    @if (string.IsNullOrEmpty(Model.BusinessChairmanPic))
+                                    {
+                                        <span><i class="fas fa-thumbs-down"></i></span>
+                                    }
+                                    else
+                                    {
+                                        <span><a href="@Model.BusinessChairmanPic" class="fas fa-download"></a></span>
+                                    }
+                                </div>
+
+
+                                <div class="form-group-page">
+                                    <span class="readLabel">Event DJ</span>
+                                    <span class="readValue">@Html.TextBoxFor(model => model.BusinessDJ, new { placeholder = "DJ" })</span>
+                                </div>
+
+                                <div class="form-group-page">
+                                    <div class='file-input'>
+                                        <input type='file' name="djfiles">
+                                        <span class='button'> DJ Image </span>
+                                        <label class='label' data-js-label>No file selected</label>
+
+                                    </div>
+                                    @if (string.IsNullOrEmpty(Model.BusinessDJPic))
+                                    {
+                                        <span><i class="fas fa-thumbs-down"></i></span>
+                                    }
+                                    else
+                                    {
+                                        <span><a href="@Model.BusinessDJPic" class="fas fa-download"></a></span>
+                                    }
+                                </div>
+
+
+                                <div class="form-group-page">
+                                    <span class="readLabel">Event MC</span>
+                                    <span class="readValue">@Html.TextBoxFor(model => model.BusinessMC, new { placeholder = "Event MC" })</span>
+                                </div>
+
+                                <div class="form-group-page">
+                                    <div class='file-input'>
+                                        <input type='file' name="mcfiles">
+                                        <span class='button'> Mc Image </span>
+                                        <label class='label' data-js-label>No file selected</label>
+
+                                    </div>
+                                    @if (string.IsNullOrEmpty(Model.BusinessMCPic))
+                                    {
+                                        <span><i class="fas fa-thumbs-down"></i></span>
+                                    }
+                                    else
+                                    {
+                                        <span><a href="@Model.BusinessMCPic" class="fas fa-download"></a></span>
+                                    }
+                                </div>
+
+                                <div class="form-group-page">
+                                    <span class="readLabel">Event Comedian</span>
+                                    <span class="readValue">@Html.TextBoxFor(model => model.BusinessComedian, new { placeholder = "Comedian" })</span>
+                                </div>
+
+                                <div class="form-group-page">
+                                    <div class='file-input'>
+                                        <input type='file' name="comedianfiles">
+                                        <span class='button'> Comedian Image </span>
+                                        <label class='label' data-js-label>No file selected</label>
+
+                                    </div>
+                                    @if (string.IsNullOrEmpty(Model.BusinessComedianPic))
+                                    {
+                                        <span><i class="fas fa-thumbs-down"></i></span>
+                                    }
+                                    else
+                                    {
+                                        <span><a href="@Model.BusinessComedianPic" class="fas fa-download"></a></span>
+                                    }
+                                </div>
+
+                                <div class="form-group-page">
+                                    <span class="readLabel">Event Caterers</span>
+                                    <span class="readValue">@Html.TextBoxFor(model => model.BusinessCaterer, new { placeholder = "Caterers" })</span>
+                                </div>
+
+
+                                <div class="form-group-page">
+                                    <div class='file-input'>
+                                        <input type='file' name="catererfiles">
+                                        <span class='button'> Caterer Image </span>
+                                        <label class='label' data-js-label>No file selected</label>
+
+                                    </div>
+                                    @if (string.IsNullOrEmpty(Model.BusinessCatererPic))
+                                    {
+                                        <span><i class="fas fa-thumbs-down"></i></span>
+                                    }
+                                    else
+                                    {
+                                        <span><a href="@Model.BusinessCatererPic" class="fas fa-download"></a></span>
+                                    }
+                                </div>
+
+                                <div class="form-group-page">
+                                    <span class="readLabel">Event Planner</span>
+                                    <span class="readValue">@Html.TextBoxFor(model => model.BusinessPlaner, new { placeholder = "Planner" })</span>
+                                </div>
+
+                                <div class="form-group-page">
+                                    <div class='file-input'>
+                                        <input type='file' name="plannerfiles">
+                                        <span class='button'> Planner Image </span>
+                                        <label class='label' data-js-label>No file selected</label>
+
+                                    </div>
+                                    @if (string.IsNullOrEmpty(Model.BusinessPlanerPic))
+                                    {
+                                        <span><i class="fas fa-thumbs-down"></i></span>
+                                    }
+                                    else
+                                    {
+                                        <span><a href="@Model.BusinessPlanerPic" class="fas fa-download"></a></span>
+                                    }
+                                </div>
+
+                                <div class="form-group-page">
+                                    <span class="readLabel">Facebook, twitter, instagram handles</span>
+                                    <span class="readValue">@Html.TextAreaFor(model => model.InternetHandles, new { placeholder = "Facebook, twitter, instagram" })</span>
+                                </div>
+
+                                <div class="form-group-page">
+                                    <span class="readLabel">App Download Location</span>
+                                    <span class="readValue">@Html.TextAreaFor(model => model.AppHandles, new { placeholder = "App Download" })</span>
+                                </div>
+
+                                <div class="form-group-page">
+                                    <span class="readLabel">Event Location</span>
+                                    <span class="readValue">@Html.TextAreaFor(model => model.BusinessLocation, new { placeholder = "Business Location" })</span>
+                                </div>
+
+                                <div class="form-group-page">
+                                    <span class="readLabel">Car Park Location</span>
+                                    <span class="readValue">@Html.TextAreaFor(model => model.CarPark, new { placeholder = "Car Park Location" })</span>
+                                </div>
+
+                                <div class="form-group-page">
+                                    <span class="readLabel">Toilet Location</span>
+                                    <span class="readValue">@Html.TextAreaFor(model => model.Toilet, new { placeholder = "Toilet Location" })</span>
+                                </div>
+
+                                <div class="form-group-page">
+                                    <span class="readLabel">Exit Location</span>
+                                    <span class="readValue">@Html.TextAreaFor(model => model.Exit, new { placeholder = "Exit Location" })</span>
+                                </div>
+
+
+                                <div class="form-group-page">
+                                    <span class="readLabel">Fire Exit</span>
+                                    <span class="readValue">@Html.TextAreaFor(model => model.FireExit, new { placeholder = "Fire Exit" })</span>
+                                </div>
+
+                               
+
+                                <div class="form-group-page">
+                                    <span class="readLabel">Closing Time</span>
+                                    <span class="readValue">@Html.TextAreaFor(model => model.ClosingTime, new { placeholder = "Closing Time" })</span>
+                                </div>
+
+
+                                <div class="form-group-page">
+                                    <span class="readLabel">UsefulTelephoneNumbers</span>
+                                    <span class="readValue">@Html.TextAreaFor(model => model.UsefulTelephoneNumbers, new { placeholder = "UsefulTelephoneNumbers" })</span>
+                                </div>
+
+
+                                <div class="form-group-page">
+                                    <span class="readLabel">Event Services</span>
+                                    <span class="readValue">@Html.TextAreaFor(model => model.BusinessServices, new { placeholder = "Event Services" })</span>
+                                </div>
+
+
+
+                                <div class="form-group-page">
+                                    <span class="readLabel">Car Parking Use</span>
+                                    <span class="readValue">@Html.TextAreaFor(model => model.CarParking, new { placeholder = "Car Parking Use" })</span>
+                                </div>
+
+                                <div class="form-group-page">
+                                    <span class="readLabel">DepartureTime</span>
+                                    <span class="readValue">@Html.TextAreaFor(model => model.DepartureTime, new { placeholder = "DepartureTime" })</span>
+                                </div>
+
+                                <div class="form-group-page">
+                                    <span class="readLabel">Dinning</span>
+                                    <span class="readValue">@Html.TextAreaFor(model => model.Dinning, new { placeholder = "Dinning" })</span>
+                                </div>
+
+                                <div class="form-group-page">
+                                    <span class="readLabel">FirePrecautions</span>
+                                    <span class="readValue">@Html.TextAreaFor(model => model.FirePrecautions, new { placeholder = "FirePrecautions" })</span>
+                                </div>
+
+                                <div class="form-group-page">
+                                    <span class="readLabel">FirstAid</span>
+                                    <span class="readValue">@Html.TextAreaFor(model => model.FirstAid, new { placeholder = "FirstAid" })</span>
+                                </div>
+
+
+
+                                <div class="form-group-page">
+                                    <span class="readLabel">ForgotSomething</span>
+                                    <span class="readValue">@Html.TextAreaFor(model => model.ForgotSomething, new { placeholder = "ForgotSomething" })</span>
+                                </div>
+
+                                <div class="form-group-page">
+                                    <span class="readLabel">Smoking</span>
+                                    <span class="readValue">@Html.TextAreaFor(model => model.Smoking, new { placeholder = "Smoking" })</span>
+                                </div>
+
+
+
+                            </div>
+
+                            <div class="col-md-6">
+
+
+
+                                <div class="form-group-page">
+                                    <span class="readLabel">Event Centre Hire</span>
+                                    <span class="readValue">@Html.TextAreaFor(model => model.PartyHire, new { placeholder = "Event Centre Hire" })</span>
+                                </div>
+
+
+
+                                <div class="form-group-page">
+                                    <span class="readLabel">Allergy Details</span>
+                                    <span class="readValue">@Html.TextAreaFor(model => model.AllergyDetails, new { placeholder = "AllergyDetails" })</span>
+                                </div>
+
+
+
+                                <div class="form-group-page">
+                                    <span class="readLabel">Direction Details</span>
+                                    <span class="readValue">@Html.TextAreaFor(model => model.DirectionDetails, new { placeholder = "DirectionDetails" })</span>
+                                </div>
+
+                                <div class="form-group-page">
+                                    <span class="readLabel">Table Reservation Details</span>
+                                    <span class="readValue">@Html.TextAreaFor(model => model.TableReservationDetails, new { placeholder = "TableReservationDetails" })</span>
+                                </div>
+
+
+
+                                <div class="form-group-page">
+                                    <span class="readLabel">Vegetarian Options</span>
+                                    <span class="readValue">@Html.TextAreaFor(model => model.VegetarianOptions, new { placeholder = "VegetarianOptions" })</span>
+                                </div>
+
+                                <div class="form-group-page">
+                                    <span class="readLabel">Kids Menu Details</span>
+                                    <span class="readValue">@Html.TextAreaFor(model => model.KidsMenuDetails, new { placeholder = "KidsMenuDetails" })</span>
+                                </div>
+
+                                <div class="form-group-page">
+                                    <span class="readLabel">Special Date Celebration</span>
+                                    <span class="readValue">@Html.TextAreaFor(model => model.SpecialDateCelebration, new { placeholder = "SpecialDateCelebration" })</span>
+                                </div>
+
+                                <div class="form-group-page">
+                                    <span class="readLabel">Spicy Meals</span>
+                                    <span class="readValue">@Html.TextAreaFor(model => model.SpicyMeals, new { placeholder = "SpicyMeals" })</span>
+                                </div>
+
+                                <div class="form-group-page">
+                                    <span class="readLabel">Disability Access</span>
+                                    <span class="readValue">@Html.TextAreaFor(model => model.DisabilityAccess, new { placeholder = "DisabilityAccess" })</span>
+                                </div>
+
+                                <div class="form-group-page">
+                                    <span class="readLabel">Cockerage Details</span>
+                                    <span class="readValue">@Html.TextAreaFor(model => model.CockerageDetails, new { placeholder = "CockerageDetails" })</span>
+                                </div>
+
+
+                                <div class="form-group-page">
+                                    <span class="readLabel">Change My Order Details</span>
+                                    <span class="readValue">@Html.TextAreaFor(model => model.ChangeMyOrderDetails, new { placeholder = "ChangeMyOrderDetails" })</span>
+                                </div>
+
+
+
+                                <div class="form-group-page">
+                                    <span class="readLabel">Food Preparation Time</span>
+                                    <span class="readValue">@Html.TextAreaFor(model => model.FoodPreparationTime, new { placeholder = "FoodPreparationTime" })</span>
+                                </div>
+
+
+
+                                <div class="form-group-page">
+                                    <span class="readLabel">Do You Cater For Children</span>
+                                    <span class="readValue">@Html.TextAreaFor(model => model.DoYouCaterForChildren, new { placeholder = "DoYouCaterForChildren" })</span>
+                                </div>
+
+                                <div class="form-group-page">
+                                    <span class="readLabel">Do You Allow Pets</span>
+                                    <span class="readValue">@Html.TextAreaFor(model => model.DoYouAllowPets, new { placeholder = "DoYouAllowPets" })</span>
+                                </div>
+
+
+
+
+                                @if (!string.IsNullOrEmpty(Model.Id) && !string.IsNullOrEmpty(Model.AppBusinessName))
+                                {
+                                    <br />
+                                    <div class="col-md-12" style="margin-left:15px;">
+                                        <span class="readValue"><input type="submit" value="Update" class="btn btn-primary" /></span>
+                                    </div>
+                                }
+
+                            </div>
+
+                        </form>
+
+                    </div>
+                </div>
+
+
+                <div class="tab-pane fade in" id="analytic">
+
+                    @if (Model.Complaints != null)
+                    {
+                        <div class="row">
+
+                            <div class="row-heading">
+                                Business Analytics
+                            </div>
+
+                            <div class="col-md-12">
+
+                                <table id="customers">
+                                    <caption>Compaints/Feedback</caption>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Customer</th>
+                                        <th>Email</th>
+                                        <th>Telephone</th>
+                                        <th>Description</th>
+                                    </tr>
+
+                                    @foreach (var c in Model.Complaints)
+                                    {
+                                        <tr>
+                                            <td>@c.BusinessDate.ToString()</td>
+                                            <td>@c.CustomerName</td>
+                                            <td>@c.Email</td>
+                                            <td>@c.Telephone</td>
+                                            <td>@c.Description</td>
+                                        </tr>
+                                    }
+
+
+                                </table>
+
+                            </div>
+
+                        </div>
+                    }
+
+                    @if (Model.Assistances != null)
+                    {
+                        <div class="row">
+
+                            <div class="row-heading">
+                                Assistances Called
+                            </div>
+
+                            <div class="col-md-12">
+
+                                <table id="customers">
+                                    <caption>Assistance</caption>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Service Type</th>
+                                        <th>Table/Room No.</th>
+                                        <th>Rooms/Tables</th>
+                                    </tr>
+
+                                    @foreach (var c in Model.Assistances)
+                                    {
+                                        <tr>
+                                            <td>@c.ServiceDate.ToString()</td>
+                                            <td>@c.ServiceType</td>
+                                            <td>@c.TableOrRoom</td>
+                                            <td>@c.TableOrRoomNo</td>
+                                        </tr>
+                                    }
+
+
+                                </table>
+
+                            </div>
+
+                        </div>
+                    }
+
+                </div>
+
+                <div class="tab-pane fade in" id="questions">
+
+                    <div class="row">
+
+                        <div class="row-heading">
+                            Unanswered Questions
+                        </div>
+
+                        <div class="col-md-12">
+                            @if (Model.Questions != null)
+                            {
+                                <table id="customers1">
+                                    <caption>Event Questions</caption>
+
+                                    <tr>
+                                        <th>Description</th>
+                                    </tr>
+
+                                    @foreach (var c in Model.Questions)
+                                    {
+                                        <tr>
+                                            <td>@c.Description</td>
+                                        </tr>
+                                    }
+
+
+                                </table>
+                            }
+
+                        </div>
+
+                    </div>
+                </div>
+
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
