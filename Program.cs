@@ -14,7 +14,7 @@ namespace ManageInvite
     {
         public static void Main(string[] args)
         {
-            CreateWebHostBuilder(args).Build().Run();//
+            CreateWebHostBuilder(args).Build().Run();//nn
         }
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
